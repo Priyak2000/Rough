@@ -1,0 +1,95 @@
+[08/01, 14:51] Priya: import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const EmployeeList = () => {
+  const [employees, setEmployees] = useState([]);  // State to store employee data
+  const [statusMessage, setStatusMessage] = useState("");  // State for status messages
+
+  // useEffect hook to fetch employees on component mount
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/employees");  // Fetch employee data
+        setEmployees(response.data);  // Update state with employee data
+      } catch (error) {
+        setStatusMessage("Error fetching employees.");  // Error handling
+        console.error("Error:", error);  // Log error to the console
+      }
+    };
+    fetchEmployees();  // Call fetch function
+  }, []);  // Empty dependency array ensures this runs only once when component mounts
+
+  return (
+    <div>
+      <h2>Employee List</h2>
+      {statusMessage && <p>{statusMessage}</p>}  {/* Display status message if exists */}
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Salary</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((emp) => (  // Loop through employees array and display each in table row
+            <tr key={emp.empId}>
+              <td>{emp.empId}</td>
+              <td>{emp.name}</td>
+              <td>{emp.department}</td>
+              <td>{emp.designation}</td>
+              <td>{emp.salary}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default EmployeeList;
+[08/01, 14:51] Priya: /* General styling */
+div {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Status message styling */
+p {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
