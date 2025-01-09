@@ -1,0 +1,164 @@
+[09/01, 15:52] Priya: import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./EmployeeList.css";
+
+const EmployeeList = () => {
+  const [employees, setEmployees] = useState([]);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/employees");
+        setEmployees(response.data);
+      } catch (error) {
+        console.error("Error fetching employees:", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
+
+  const handleEdit = (id) => {
+    navigate(`/update-employee/${id}`);
+  };
+
+  const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this employee?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:8080/employees/${id}`);
+        setEmployees(employees.filter((emp) => emp.empId !== id));
+      } catch (error) {
+        console.error("Error deleting employee:", error);
+      }
+    }
+  };
+
+  const handleDetails = (id) => {
+    navigate(`/employee-details/${id}`);
+  };
+
+  return (
+    <div className="employee-container">
+      <h2>Employee List</h2>
+      <div className="employee-cards">
+        {employees.map((emp) => (
+          <div className="employee-card" key={emp.empId}>
+            <h3
+              className="employee-name"
+              onClick={() => handleDetails(emp.empId)}
+              style={{ cursor: "pointer" }}
+            >
+              {emp.name}
+            </h3>
+            <p>Department: {emp.department}</p>
+            <p>Designation: {emp.designation}</p>
+            <button onClick={() => handleEdit(emp.empId)}>Edit</button>
+            <button onClick={() => handleDelete(emp.empId)}>Delete</button>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default EmployeeList;
+[09/01, 15:52] Priya: import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "./EmployeeDetails.css";
+
+const EmployeeDetails = () => {
+  const { id } = useParams();
+  const [employee, setEmployee] = useState(null);
+
+  useEffect(() => {
+    const fetchEmployeeDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/employees/${id}`);
+        setEmployee(response.data);
+      } catch (error) {
+        console.error("Error fetching employee details:", error);
+      }
+    };
+
+    fetchEmployeeDetails();
+  }, [id]);
+
+  if (!employee) {
+    return <p>Loading employee details...</p>;
+  }
+
+  return (
+    <div className="employee-details">
+      <h2>Employee Details</h2>
+      <p><strong>ID:</strong> {employee.empId}</p>
+      <p><strong>Name:</strong> {employee.name}</p>
+      <p><strong>Department:</strong> {employee.department}</p>
+      <p><strong>Designation:</strong> {employee.designation}</p>
+      <p><strong>Salary:</strong> {employee.salary}</p>
+    </div>
+  );
+};
+
+export default EmployeeDetails;
+[09/01, 15:53] Priya: .employee-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.employee-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.employee-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  width: calc(33.33% - 20px);
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-card h3 {
+  margin: 0;
+  color: #007bff;
+}
+
+.employee-card button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.employee-card button:hover {
+  background-color: #0056b3;
+}
+[09/01, 15:53] Priya: .employee-details {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.employee-details h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.employee-details p {
+  font-size: 18px;
+  margin: 10px 0;
+}
