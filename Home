@@ -1,0 +1,74 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import "./Home.css"; // Add CSS for styling
+
+const Home = () => {
+  const navigate = useNavigate();
+
+  return (
+    <div className="home-container">
+      <h1 className="app-title">Employee Management System</h1>
+      <div className="button-container">
+        <button className="nav-button" onClick={() => navigate("/view-employees")}>
+          View Employees
+        </button>
+        <button className="nav-button" onClick={() => navigate("/add-employee")}>
+          Add Employee
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
+/* Centering the content */
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #74ebd5, #acb6e5);
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Application Title */
+.app-title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Button Container */
+.button-container {
+  display: flex;
+  gap: 20px;
+}
+
+/* Navigation Buttons */
+.nav-button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #0077b6;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-button:hover {
+  background-color: #023e8a;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.nav-button:active {
+  transform: translateY(0);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
