@@ -1,0 +1,85 @@
+/* Center container with shadow effect */
+.employee-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f1f1f1, #ffffff);
+  font-family: "Arial", sans-serif;
+}
+
+/* Card style for details */
+.employee-card {
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  width: 350px;
+  text-align: center;
+  border: 1px solid #e5e5e5;
+}
+
+/* Title for the details section */
+.employee-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #0077b6;
+  margin-bottom: 20px;
+}
+
+/* Employee details list */
+.employee-detail {
+  font-size: 1.1rem;
+  color: #333333;
+  margin: 8px 0;
+  font-weight: 500;
+}
+
+/* Button styles */
+.employee-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.employee-button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #0077b6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 45%;
+}
+
+.employee-button:hover {
+  background-color: #005f8a;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.employee-button:active {
+  transform: translateY(0);
+}
+
+/* Back to home button */
+.back-button {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  color: #0077b6;
+  background-color: transparent;
+  border: 1px solid #0077b6;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-button:hover {
+  background-color: #0077b6;
+  color: #ffffff;
+}
