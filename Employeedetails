@@ -1,0 +1,62 @@
+.employee-details-container {
+  margin: 20px auto;
+  padding: 20px;
+  width: 50%;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  background-color: #f9f9f9;
+}
+
+.employee-details-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.employee-details-container p {
+  font-size: 18px;
+  margin: 5px 0;
+  color: #555;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.edit-button, .delete-button, .home-button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.home-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.edit-button:hover {
+  background-color: #0056b3;
+}
+
+.delete-button:hover {
+  background-color: #c82333;
+}
+
+.home-button:hover {
+  background-color: #5a6268;
+}
