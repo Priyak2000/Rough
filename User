@@ -197,3 +197,30 @@ h1 {
 .actions button:last-child:hover {
   background-color: #a71d2a;
 }
+
+//userlist
+
+import React from "react";
+
+function UserList({ users, deleteUser, editUser }) {
+  return (
+    <div className="user-list">
+      {users.length === 0 ? (
+        <p>No users available. Add some!</p>
+      ) : (
+        users.map((user) => (
+          <div key={user.id} className="user-card">
+            <h3>{user.name}</h3>
+            <p>{user.email}</p>
+            <div className="actions">
+              <button onClick={() => editUser(user)}>Edit</button>
+              <button onClick={() => deleteUser(user.id)}>Delete</button>
+            </div>
+          </div>
+        ))
+      )}
+    </div>
+  );
+}
+
+export default UserList;
