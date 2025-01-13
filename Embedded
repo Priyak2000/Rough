@@ -295,3 +295,58 @@ p {
   font-size: 0.9rem;
   margin-top: 1rem;
 }
+
+
+
+
+//user context 
+import React, { createContext, useState, useContext, useEffect } from "react";
+
+const UserContext = createContext();
+
+export const useUserContext = () => useContext(UserContext);
+
+export const UserProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
+
+  const login = () => {
+    localStorage.setItem("isLoggedIn", "true");
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsAuthenticated(false);
+  };
+
+  useEffect(() => {
+    // You can add more logic if needed for token expiration or validation.
+    setIsAuthenticated(localStorage.getItem("isLoggedIn") === "true");
+  }, []);
+
+  return (
+    <UserContext.Provider value={{ isAuthenticated, login, logout }}>
+      {children}
+    </UserContext.Provider>
+  );
+};
+
+//protected
+
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useUserContext } from "./UserContext";
+
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated } = useUserContext();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;
