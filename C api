@@ -1,0 +1,39 @@
+import React, { createContext, useState, useContext, useEffect } from "react";
+
+// Create the context
+export const UserContext = createContext();
+
+// Custom hook to use the context
+export const useUserContext = () => useContext(UserContext);
+
+// UserProvider Component
+export const UserProvider = ({ children }) => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true); // To handle loading state
+
+    // Check authentication on component mount
+    useEffect(() => {
+        const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+        setIsAuthenticated(loggedIn);
+        setLoading(false); // Done loading
+    }, []);
+
+    // Login function
+    const login = () => {
+        localStorage.setItem("isLoggedIn", "true");
+        setIsAuthenticated(true);
+    };
+
+    // Logout function
+    const logout = () => {
+        localStorage.removeItem("isLoggedIn");
+        setIsAuthenticated(false);
+    };
+
+    // Provide context values
+    return (
+        <UserContext.Provider value={{ isAuthenticated, login, logout }}>
+            {!loading && children} {/* Render children only when loading is complete */}
+        </UserContext.Provider>
+    );
+};
